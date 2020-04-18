@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div id="app">
+
+    <h1>
+      {{title}}
+      <!-- Solo se compara una vez
+           y si no se cumplen desaparecen -->
+
+      <span v-if="changePercent > 0">👍</span>
+      <span v-else-if="changePercent < 0">👎</span>
+      <span v-else>🤞</span>
+
+      <!-- Solo se compara todo el tiempo
+           si no se cumple se muestran con display none -->
+      <span v-show="changePercent > 0">👍</span>
+      <span v-show="changePercent < 0">👎</span>
+      <span v-show="changePercent === 0">🤞</span>
+    </h1>
+  
+    <img v-bind:src="image" alt="">
+    
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="app.js"></script>
+</body>
+</html>
