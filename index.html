@@ -43,8 +43,23 @@
         {{i}} - {{price.day}} - {{price.value}}
       </li>
     </ul>
-    
-    
+
+    <h2>Agrega aqui tus cursos</h2>
+
+    <form v-on:submit.prevent="addCourse(courses)">
+      <label>Nombre
+        <input type="text" v-model="courses.title" required>
+      </label>
+      <label>Horas
+        <input type="number" v-model="courses.time" required>
+      </label>
+      <button type="submit">Agregar</button>
+    </form>
+
+    <h2>Has invertido {{totalTime}} horas haciendo estos cursos</h2>
+    <ul v-for="course in courses">
+      <li>{{course.title}} ({{course.time}}Hrs)</li>
+    </ul>
 
   </div>
   <script src="https://cdn.jsdelivr.net/npm/vue"></script>

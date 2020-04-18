@@ -19,6 +19,28 @@ new Vue({
       currentPrice: 8600,
       color: 'a4a4a4',
       value: 0,
+      courses: [
+        {
+          title: 'Inglés',
+          time: 22,
+        },
+        {
+          title: 'Japones',
+          time: 40,
+        },
+        {
+          title: 'Inglés',
+          time: 22,
+        },        
+        {
+          title: 'Inglés',
+          time: 22,
+        },        
+        {
+          title: 'Inglés',
+          time: 22,
+        },
+      ]
     }
   },
   computed: { //variables editadas, que siempre devuelven un valor
@@ -31,6 +53,13 @@ new Vue({
       } else {
         return this.value /this.currentPrice
       }
+    },
+    totalTime(){
+      var sum = 0
+      this.courses.forEach(course => {
+        sum += course.time
+      })
+      return sum
     }
   },
   watch: { //funciones que verifican el cambio de datos
@@ -47,9 +76,16 @@ new Vue({
         .split('') //crea un array con los char del string
         .reverse() //reversa el array
         .join('') //vuelve a concatenar el string
+    },
+    addCourse(newCourse){
+      this.courses.push(
+        { 
+          title: newCourse.title, 
+          time: parseInt(newCourse.time)
+        }
+      )
+      newCourse.title = ''
+      newCourse.time = 0
     }
   },
-
-  
-  
 })
