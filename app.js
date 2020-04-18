@@ -18,11 +18,19 @@ new Vue({
       showPrices: false,
       currentPrice: 8600,
       color: 'a4a4a4',
+      value: 0,
     }
   },
   computed: { //variables editadas, que siempre devuelven un valor
     title () {
       return `${this.name} ${this.symbol}`
+    },
+    convertedValue() {
+      if(!this.value) {
+        return 0
+      } else {
+        return this.value /this.currentPrice
+      }
     }
   },
   watch: { //funciones que verifican el cambio de datos
