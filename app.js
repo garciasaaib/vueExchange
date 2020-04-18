@@ -2,7 +2,8 @@ new Vue({
   el: '#app',
   data () {
     return {
-      title: 'Bitcoin',
+      name: 'Bitcoin',
+      symbol: 'BTC',
       image: 'https://s2.coinmarketcap.com/static/img/coins/64x64/1.png',
       changePercent: -1,
       pricesByDay: [
@@ -19,6 +20,16 @@ new Vue({
       color: 'a4a4a4',
     }
   },
+  computed: { //variables editadas, que siempre devuelven un valor
+    title () {
+      return `${this.name} ${this.symbol}`
+    }
+  },
+  watch: { //funciones que verifican el cambio de datos
+    showPrices(newVal, oldVal) { //debe tener el mismo nombre que un dato
+      console.log(newVal,oldVal)
+    }
+  },
   methods:{ //eventos de la vista
     toggleShowPrices() {
       this.showPrices = !this.showPrices
@@ -29,6 +40,8 @@ new Vue({
         .reverse() //reversa el array
         .join('') //vuelve a concatenar el string
     }
-  } 
+  },
+
+  
   
 })
