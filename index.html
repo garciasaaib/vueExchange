@@ -9,7 +9,11 @@
 <body>
   <div id="app">
 
-    <img v-bind:src="image" alt="">
+    <img 
+      v-on:mouseover="toggleShowPrices" 
+      v-on:mouseout="toggleShowPrices"
+      v-bind:src="image" 
+      alt="">
     <h1>
       {{title}}
       <!-- Solo se compara una vez
@@ -18,15 +22,15 @@
       <span v-if="changePercent > 0">👍</span>
       <span v-else-if="changePercent < 0">👎</span>
       <span v-else>🤞</span>
-
-      <!-- Solo se compara todo el tiempo
-           si no se cumple se muestran con display none -->
-      <span v-show="changePercent > 0">👍</span>
-      <span v-show="changePercent < 0">👎</span>
-      <span v-show="changePercent === 0">🤞</span>
+      <span v-on:click="toggleShowPrices">
+        {{showPrices ? '🙉' : '🙈' }}
+      </span>
     </h1>
 
-    <ul>
+
+
+
+    <ul v-show="showPrices">
       <li v-for="(price, i) in pricesByDay" v-bind:key="i" >
         {{i}} - {{price.day}} - {{price.value}}
       </li>

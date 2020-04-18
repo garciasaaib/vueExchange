@@ -13,7 +13,14 @@ new Vue({
         {day: 'Friday', value: 8800},
         {day: 'Saturday', value: 9000},
         {day: 'Sunday', value: 10000},
-      ]
+      ],
+      showPrices: false
     }
-  }
+  },
+  methods:{ //eventos de la vista
+    toggleShowPrices() {
+      this.showPrices = !this.showPrices
+    }
+  } 
+  
 })
