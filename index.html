@@ -9,6 +9,7 @@
 <body>
   <div id="app">
 
+    <img v-bind:src="image" alt="">
     <h1>
       {{title}}
       <!-- Solo se compara una vez
@@ -24,8 +25,13 @@
       <span v-show="changePercent < 0">👎</span>
       <span v-show="changePercent === 0">🤞</span>
     </h1>
+
+    <ul>
+      <li v-for="(price, i) in pricesByDay" v-bind:key="i" >
+        {{i}} - {{price.day}} - {{price.value}}
+      </li>
+    </ul>
   
-    <img v-bind:src="image" alt="">
     
 
   </div>
