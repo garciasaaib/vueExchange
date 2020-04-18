@@ -14,7 +14,8 @@
       v-on:mouseout="toggleShowPrices"
       v-bind:src="image" 
       alt="">
-    <h1>
+    <!-- Dar clases mediante ifs -->
+    <h1 v-bind:class="changePercent > 0 ? 'green' : 'red'">
       {{title}}
       <!-- Solo se compara una vez
            y si no se cumplen desaparecen -->
@@ -29,9 +30,14 @@
 
 
 
-
+    <!-- Asignar clases mediante objetos de ifs 
+    el aplicar clases desde class tambien esta perfecto-->
     <ul v-show="showPrices">
-      <li v-for="(price, i) in pricesByDay" v-bind:key="i" >
+      <li 
+        class="uppercase"
+        v-for="(price, i) in pricesByDay" 
+        v-bind:key="i" 
+        v-bind:class="{ orange: price.value === currentPrice,red: price.value < currentPrice, green: price.value > currentPrice }">
         {{i}} - {{price.day}} - {{price.value}}
       </li>
     </ul>

@@ -4,7 +4,7 @@ new Vue({
     return {
       title: 'Bitcoin',
       image: 'https://s2.coinmarketcap.com/static/img/coins/64x64/1.png',
-      changePercent: 0,
+      changePercent: -1,
       pricesByDay: [
         {day: 'Monday', value: 8000},
         {day: 'Tuesday', value: 8200},
@@ -14,7 +14,8 @@ new Vue({
         {day: 'Saturday', value: 9000},
         {day: 'Sunday', value: 10000},
       ],
-      showPrices: false
+      showPrices: false,
+      currentPrice: 8600,
     }
   },
   methods:{ //eventos de la vista
