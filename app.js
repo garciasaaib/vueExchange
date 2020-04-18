@@ -16,11 +16,18 @@ new Vue({
       ],
       showPrices: false,
       currentPrice: 8600,
+      color: 'a4a4a4',
     }
   },
   methods:{ //eventos de la vista
     toggleShowPrices() {
       this.showPrices = !this.showPrices
+      
+      //metodo para cambiar los colores
+      this.color = this.color
+        .split('') //crea un array con los char del string
+        .reverse() //reversa el array
+        .join('') //vuelve a concatenar el string
     }
   } 
   
