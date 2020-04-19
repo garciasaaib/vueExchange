@@ -10,56 +10,12 @@
   <!--Agregando dark mode mediante un objeto -->
   <div id="app" v-bind:style="{ background: '#' + color }">
 
-    <img 
-      v-on:mouseover="toggleShowPrices" 
-      v-on:mouseout="toggleShowPrices"
-      v-bind:src="image" 
-      alt="">
+
     <!-- Dar clases mediante ifs -->
-    <h1 v-bind:class="changePercent > 0 ? 'green' : 'red'">
-      {{title}}
-      <!-- Solo se compara una vez
-           y si no se cumplen desaparecen -->
+    <coin-detail 
+      v-bind:coin="btc"
+    ></coin-detail>
 
-      <span v-if="changePercent > 0">👍</span>
-      <span v-else-if="changePercent < 0">👎</span>
-      <span v-else>🤞</span>
-      <span v-on:click="toggleShowPrices">
-        {{showPrices ? '🙉' : '🙈' }}
-      </span>
-    </h1>
-
-    <input type="number" v-model="value">
-    <span>{{convertedValue}}</span>
-
-    <!-- Asignar clases mediante objetos de ifs 
-    el aplicar clases desde class tambien esta perfecto-->
-    <ul v-show="showPrices">
-      <li 
-        class="uppercase"
-        v-for="(price, i) in pricesByDay" 
-        v-bind:key="i" 
-        v-bind:class="{ orange: price.value === currentPrice,red: price.value < currentPrice, green: price.value > currentPrice }">
-        {{i}} - {{price.day}} - {{price.value}}
-      </li>
-    </ul>
-
-    <h2>Agrega aqui tus cursos</h2>
-
-    <form v-on:submit.prevent="addCourse(courses)">
-      <label>Nombre
-        <input type="text" v-model="courses.title" required>
-      </label>
-      <label>Horas
-        <input type="number" v-model="courses.time" required>
-      </label>
-      <button type="submit">Agregar</button>
-    </form>
-
-    <h2>Has invertido {{totalTime}} horas haciendo estos cursos</h2>
-    <ul v-for="course in courses">
-      <li>{{course.title}} ({{course.time}}Hrs)</li>
-    </ul>
 
     <counter></counter>
   </div>

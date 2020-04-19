@@ -1,93 +1,92 @@
-Vue.component('counter', {
-  data() {
+Vue.component('CoinDetail', {
+  //datos del componente padre que necesita este componente
+  props: [ 
+    'coin'
+  ],
+
+  data() { //datos del componente
     return {
-      counter: 0,
+      showPrices: false,
+      value: 0,
     }
   },
-  methods: {
-    increment() {
-      this.counter += 1
-    }
+
+  methods: { //metodos del componente
+    toggleShowPrices() {
+      this.showPrices = !this.showPrices
+    },
   },
+
+  computed: {
+    convertedValue() {
+      if(!this.value) {
+        return 0
+      } else {
+        return this.value / this.coin.currentPrice
+      }
+    },
+    title () {
+      return `${this.coin.name} ${this.coin.symbol}`
+    },
+  },
+
   template: `
   <div>
-    <button v-on:click="increment()">Counter</button>
-    <span>{{ counter }}</span>
+    <img 
+      v-on:mouseover="toggleShowPrices" 
+      v-on:mouseout="toggleShowPrices"
+      v-bind:src="coin.image" 
+      alt="coin.name">
+    <h1 v-bind:class="coin.changePercent > 0 ? 'green' : 'red'">
+      {{coin.title}}
+      <span v-if="coin.changePercent > 0">👍</span>
+      <span v-else-if="coin.changePercent < 0">👎</span>
+      <span v-else>🤞</span>
+      <span v-on:click="toggleShowPrices">
+        {{showPrices ? '🙉' : '🙈' }}
+      </span>
+    </h1>
+    <input type="number" v-model="value">
+    <span>{{convertedValue}}</span>
+    <ul v-show="showPrices">
+    <li 
+      class="uppercase"
+      v-for="(price, i) in coin.pricesByDay" 
+      v-bind:key="i" 
+      v-bind:class="{ orange: price.value === coin.currentPrice,red: price.value < coin.currentPrice, green: price.value > coin.currentPrice }">
+      {{i}} - {{price.day}} - {{price.value}}
+    </li>
+  </ul>
   </div>
-  `
-  
+  `,
 })
+
 
 new Vue({
   el: '#app',
   data () {
     return {
-      name: 'Bitcoin',
-      symbol: 'BTC',
-      image: 'https://s2.coinmarketcap.com/static/img/coins/64x64/1.png',
-      changePercent: -1,
-      pricesByDay: [
-        {day: 'Monday', value: 8000},
-        {day: 'Tuesday', value: 8200},
-        {day: 'Wednesday', value: 8400},
-        {day: 'Thursday', value: 8600},
-        {day: 'Friday', value: 8800},
-        {day: 'Saturday', value: 9000},
-        {day: 'Sunday', value: 10000},
-      ],
-      showPrices: false,
-      currentPrice: 8600,
+      btc: {
+        name: 'Bitcoin',
+        symbol: 'BTC',
+        image: 'https://s2.coinmarketcap.com/static/img/coins/64x64/1.png',
+        changePercent: -1,
+        currentPrice: 8600,
+        pricesByDay: [
+          {day: 'Monday', value: 8000},
+          {day: 'Tuesday', value: 8200},
+          {day: 'Wednesday', value: 8400},
+          {day: 'Thursday', value: 8600},
+          {day: 'Friday', value: 8800},
+          {day: 'Saturday', value: 9000},
+          {day: 'Sunday', value: 10000},
+        ],
+      },
       color: 'a4a4a4',
       value: 0,
-      courses: [
-        {
-          title: 'Inglés',
-          time: 22,
-        },
-        {
-          title: 'Japones',
-          time: 40,
-        },
-        {
-          title: 'Inglés',
-          time: 22,
-        },        
-        {
-          title: 'Inglés',
-          time: 22,
-        },        
-        {
-          title: 'Inglés',
-          time: 22,
-        },
-      ]
     }
   },
-  computed: { //variables editadas, que siempre devuelven un valor
-    title () {
-      return `${this.name} ${this.symbol}`
-    },
-    convertedValue() {
-      if(!this.value) {
-        return 0
-      } else {
-        return this.value /this.currentPrice
-      }
-    },
-    totalTime(){
-      var sum = 0
-      this.courses.forEach(course => {
-        sum += course.time
-      })
-      return sum
-    }
-  },
-  watch: { //funciones que verifican el cambio de datos
-    showPrices(newVal, oldVal) { //debe tener el mismo nombre que un dato
-      console.log(newVal,oldVal)
-    }
-  },
-  methods:{ //eventos de la vista
+  /*methods:{ //eventos de la vista
     toggleShowPrices() {
       this.showPrices = !this.showPrices
       
@@ -97,15 +96,5 @@ new Vue({
         .reverse() //reversa el array
         .join('') //vuelve a concatenar el string
     },
-    addCourse(newCourse){
-      this.courses.push(
-        { 
-          title: newCourse.title, 
-          time: parseInt(newCourse.time)
-        }
-      )
-      newCourse.title = ''
-      newCourse.time = 0
-    }
-  },
+  },*/
 })
