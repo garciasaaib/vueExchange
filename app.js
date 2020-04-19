@@ -74,6 +74,31 @@ Vue.component('CoinDetail', {
   `,
 })
 
+Vue.component('Modal', {
+  props: [
+    'title'
+  ],
+
+  template: `
+  <div class="modal-mask">
+      <div class="modal-wrapper">
+        <div class="modal-container">
+          <div class="modal-head">
+            <h2>{{title}}</h2>
+          </div>
+          <slot name="modal-body"></slot>
+          <button class="btn" v-on:click="closeModal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  `,
+  methods: { //metodos del componente
+    closeModal() {
+      //para avisar al padre que hemos cambiado este dato
+      this.$emit('close-modal')
+    },
+  },
+})
 
 new Vue({
   el: '#app',
@@ -94,9 +119,12 @@ new Vue({
           {day: 'Saturday', value: 9000},
           {day: 'Sunday', value: 10000},
         ],
+
       },
       color: 'a4a4a4',
       value: 0,
+      modal: false,
+      title: 'Bitcoin será el nuevo peso mexicano',
     }
   },
   created() {
@@ -114,5 +142,9 @@ new Vue({
         .reverse() //reversa el array
         .join('') //vuelve a concatenar el string
     },
+    toggleModal() {
+      this.modal = !this.modal
+    },
   },
+
 })

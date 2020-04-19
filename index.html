@@ -24,6 +24,20 @@
       </template>
     </coin-detail>
 
+    <modal
+      v-show="modal"
+      v-on:close-modal="toggleModal"
+      v-bind:title="title"
+    >
+      <template v-slot:modal-body>  
+          <div class="modal-body">
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Asperiores dolores omnis ipsam saepe numquam. Ab ipsa, pariatur explicabo ipsum optio saepe cupiditate quidem voluptate.</p>
+          </div>
+      </template>
+    </modal>
+
+    <button v-on:click="toggleModal">Open Modal</button>
+
 
     <counter></counter>
   </div>
