@@ -14,8 +14,15 @@
     <!-- Dar clases mediante ifs -->
     <coin-detail 
       v-on:change-color="updateColor"
-      v-bind:coin="btc"
-    ></coin-detail>
+      v-bind:coin="btc">
+      <!--De esta manera metemos tags en child desde father-->
+      <template v-slot:text>
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nulla amet optio similique recusandae sunt maiores eaque debitis reiciendis assumenda, ipsa tenetur suscipit ut repudiandae deserunt rerum nesciunt aliquam esse et!</p>
+      </template>
+      <template v-slot:url>
+        <a href="#">link</a>
+      </template>
+    </coin-detail>
 
 
     <counter></counter>
