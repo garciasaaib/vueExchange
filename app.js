@@ -33,7 +33,12 @@ Vue.component('CoinDetail', {
       return `${this.coin.name} ${this.coin.symbol}`
     },
   },
-
+  created() {
+    console.log('component Created...') //sirve en apis
+  },
+  mounted () {
+    console.log('component Mounted...') //dom disponible
+  },
   template: `
   <div>
     <img 
@@ -93,6 +98,12 @@ new Vue({
       color: 'a4a4a4',
       value: 0,
     }
+  },
+  created() {
+    console.log('Created...') //sirve en apis
+  },
+  mounted () {
+    console.log('Mounted...') //dom disponible
   },
   methods:{ //eventos de la vista
     updateColor(color) {
