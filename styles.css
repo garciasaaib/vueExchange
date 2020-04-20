@@ -3,7 +3,7 @@ body {
   color: white;
   font-family: Arial, Helvetica, sans-serif;
   position: relative;
-  min-height:100vh;
+  min-height: 100vh;
 }
 .green {
   color: rgb(102, 223, 102);
@@ -32,15 +32,14 @@ body {
 .modal-mask {
   background-color: rgba(0, 0, 0, 0.5);
   position: absolute;
-  top:0;
-  bottom:0;
-  right:0;
-  left:0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
 }
 .modal-wrapper {
-  display:flex;
+  display: flex;
   justify-content: center;
-  
 }
 .modal-container {
   background-color: rgb(233, 190, 190);
