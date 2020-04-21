@@ -1,4 +1,7 @@
 # exchange
+This is a copy of the site https://coincap.io/
+And we use their API https://docs.coincap.io/?version=latest
+
 
 ## Project setup
 ```
