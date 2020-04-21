@@ -6,12 +6,12 @@
 </template>
 
 <script>
-import PxHeader from "@/components/PxHeader.vue";
+import PxHeader from '@/components/PxHeader.vue'
 
 export default {
-  name: "App",
+  name: 'App',
   components: { PxHeader }
-};
+}
 </script>
 
 <style>
@@ -25,7 +25,7 @@ export default {
 }
 main {
   background-color: #2c3e50;
-  height: 100vh;
+  height: auto;
   width: 100vw;
 }
 </style>

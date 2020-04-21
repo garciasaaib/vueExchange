@@ -2,7 +2,7 @@
   <table>
     <thead>
       <tr class="bg-green-400 border-b-2 border-gray-400">
-        <th></th>
+        <th>Coin</th>
         <th>
           <span>Ranking</span>
         </th>
@@ -14,13 +14,25 @@
       </tr>
     </thead>
     <tbody>
-      <tr class="border-b border-gray-200 hover:bg-gray-100 hover:bg-{rgba(84, 89, 89, 0.65)}">
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+      <tr
+        v-for="asset in assets"
+        :key="asset.id"
+        class="border-b border-gray-200 hover:bg-gray-100 hover:bg-{rgba(84, 89, 89, 0.65)}"
+      >
+        <td>
+          <img
+            :src="
+              `https://static.coincap.io/assets/icons/${asset.symbol.toLowerCase()}@2x.png`
+            "
+          />
+        </td>
+        <td>
+          <b>#{{ asset.rank }}</b>
+        </td>
+        <td>{{ asset.name }}</td>
+        <td>{{ asset.priceUsd }}</td>
+        <td>{{ asset.marketCapUsd }}</td>
+        <td>{{ asset.changePercent24Hr }}</td>
         <td class="hidden sm:block"></td>
       </tr>
     </tbody>
@@ -29,24 +41,26 @@
 
 <script>
 export default {
-  name: "PxAssetsTable",
+  name: 'PxAssetsTable',
 
-  props: { //prop enviada por el padre
-    assets: { //obtiene con este nombre
+  props: {
+    //prop enviada por el padre
+    assets: {
+      //obtiene con este nombre
       type: Array, //sera un array
       default: () => [] //y por default estara vacio pero se puede llenar
     }
   }
-};
+}
 </script>
 
 <style scoped>
 .up::before {
-  content: "👆";
+  content: '👆';
 }
 
 .down::before {
-  content: "👇";
+  content: '👇';
 }
 
 td {
