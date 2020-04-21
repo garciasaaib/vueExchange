@@ -1,7 +1,7 @@
 <template>
   <table>
     <thead>
-      <tr class="bg-gray-100 border-b-2 border-gray-400">
+      <tr class="bg-green-400 border-b-2 border-gray-400">
         <th></th>
         <th>
           <span>Ranking</span>
@@ -14,7 +14,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr class="border-b border-gray-200 hover:bg-gray-100 hover:bg-orange-100">
+      <tr class="border-b border-gray-200 hover:bg-gray-100 hover:bg-{rgba(84, 89, 89, 0.65)}">
         <td></td>
         <td></td>
         <td></td>
