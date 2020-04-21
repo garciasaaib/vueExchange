@@ -5,7 +5,7 @@
         <div class="flex items-center flex-shrink-0 text-white mr-6">
           <px-icon class="mr-2"/>
           <span class="font-semibold text-xl tracking-tight">
-            Historial de trades
+            Trader Road
           </span>
         </div>
         <div class="hidden sm:block w-full block flex-grow lg:flex lg:items-center lg:w-auto">
