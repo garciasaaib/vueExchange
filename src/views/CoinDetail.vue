@@ -12,7 +12,9 @@
           />
           <h1 class="text-5xl">
             {{ asset.name }}
-            <small class="sm:mr-2 text-gray-500">{{ asset.symbol }}</small>
+            <small class="sm:mr-2 text-gray-500">
+              {{ asset.symbol }}
+            </small>
           </h1>
         </div>
 
@@ -24,23 +26,23 @@
             </li>
             <li class="flex justify-between">
               <b class="text-gray-600 mr-10 uppercase">Current Proce</b>
-              <span></span>
+              <span>{{ asset.priceUsd | dollar }}</span>
             </li>
             <li class="flex justify-between">
               <b class="text-gray-600 mr-10 uppercase">Lowest Price</b>
-              <span></span>
+              <span>{{ min | dollar }}</span>
             </li>
             <li class="flex justify-between">
               <b class="text-gray-600 mr-10 uppercase">Highest Price</b>
-              <span></span>
+              <span>{{ max | dollar }}</span>
             </li>
             <li class="flex justify-between">
               <b class="text-gray-600 mr-10 uppercase">Average Price</b>
-              <span></span>
+              <span>{{ avg | dollar }}</span>
             </li>
             <li class="flex justify-between">
               <b class="text-gray-600 mr-10 uppercase">24 hrs variation</b>
-              <span></span>
+              <span>{{ asset.changePercent24Hr | percent }}</span>
             </li>
           </ul>
         </div>
@@ -75,9 +77,29 @@ export default {
   name: 'CoinDetail',
   data() {
     return {
-      asset: {}
+      asset: {},
+      history: {}
     }
   },
+
+  computed: { 
+    min() {
+      return Math.min(
+        ...this.history.map(h => parseFloat(h.priceUsd).toFixed(2))
+      )
+    },
+    max() {
+      return Math.max(
+        ...this.history.map(h => parseFloat(h.priceUsd).toFixed(2))
+      )
+    },
+    avg() {
+      return Math.abs(
+        ...this.history.map(h => parseFloat(h.priceUsd).toFixed(2))
+      )
+    }
+  },
+
   created() {
     //al crear el componente se llama a getCoin
     this.getCoin()
@@ -87,9 +109,20 @@ export default {
       //esta linea declara que queremos obtener el id desde la ruta
       const id = this.$route.params.id
 
-      //llama al metodo de la api con el id como parametro
-      //luego guarda lo que retorna en asset
-      api.getAsset(id).then(asset => (this.asset = asset))
+      //promiseall nos permite obtener las peticiones juntas en un array
+      Promise.all([
+        //llama al metodo de la api con el id como parametro
+        //luego guarda lo que retorna en asset
+        api.getAsset(id),
+        api.getAssetHistory(id)
+        //.then(asset => (this.asset = asset))
+      ])
+      .then(([asset, history]) => {
+        this.asset = asset
+        this.history = history
+      })
+
+     
     }
   }
 }
