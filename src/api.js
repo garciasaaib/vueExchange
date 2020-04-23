@@ -6,6 +6,13 @@ function getAssets() {
     .then(res => res.data)
 }
 
+function getAsset(id) {
+  return fetch(`${url}/assets/${id}`)
+    .then(res => res.json())
+    .then(res => res.data)
+}
+
 export default {
-  getAssets
+  getAssets,
+  getAsset
 }
