@@ -3,19 +3,29 @@
     <thead>
       <tr class="bg-green-400 border-b-2 border-gray-400">
         <th>Coin</th>
-        <th>
-          <span>Ranking</span>
+        <th :class="{ up: this.sortOrder === 1, down: this.sortOrder === -1 }">
+          <span @click="changeSortOrder" class="underline cursor">
+            Ranking
+          </span>
         </th>
         <th>Nombre</th>
         <th>Precio</th>
         <th>Cap. de Mercado</th>
         <th>Variación 24hs</th>
-        <td></td>
+        <td>
+          <input
+            class="bg-gray-100 focus:outline-none border-b border-gray-400 py-2 px-4 block w-full appearance-none leading-normal"
+            id="filter"
+            placeholder="Buscar..."
+            type="text"
+            v-model="filter"
+          />
+        </td>
       </tr>
     </thead>
     <tbody>
       <tr
-        v-for="asset in assets"
+        v-for="asset in filteredAssets"
         :key="asset.id"
         class="border-b border-gray-200 hover:bg-gray-100 hover:bg-{rgba(84, 89, 89, 0.65)}"
       >
@@ -68,6 +78,38 @@ export default {
   name: 'PxAssetsTable',
   components: { PxButton },
 
+  data() {
+    return {
+      filter: '', //este sera el v-model del filter
+      sortOrder: 1 //v-model para ordenar el string de filter
+    }
+  },
+
+  computed: {
+    filteredAssets() { //aqui declararemos el contenido del filter
+      /*if (!this.filter) {
+        return this.assets
+      } *///si filter es vacio regresamos this.assets
+
+      const altOrder = this.sortOrder === 1 ? -1 : 1
+
+      return this.assets.filter(
+        a => //si no
+        //regresa un array que filtra los datos si incluye el string qu eesta en name o symbol
+        a.symbol.toLowerCase().includes(this.filter.toLowerCase()) ||
+        a.name.toLowerCase().includes(this.filter.toLowerCase())
+      )
+      .sort((a, b) => { //para ordenar
+        //transforma rank a tipo number y los acomoda del mayor a menor
+        if (parseInt(a.rank) > parseInt(b.rank)) {
+          return this.sortOrder
+        }
+
+        return altOrder
+      })
+    }
+  },
+
   props: {
     //prop enviada por el padre
     assets: {
@@ -81,6 +123,10 @@ export default {
     goToCoin(id) {
       //this.$router.push me permite navegar dentro del codigo
       this.$router.push({ name: 'coin-detail', params: { id } })
+    },
+
+    changeSortOrder() {
+      this.sortOrder = this.sortOrder === 1 ? -1 : 1
     }
   }
 }
