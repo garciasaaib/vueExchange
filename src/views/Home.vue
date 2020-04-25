@@ -22,7 +22,7 @@ export default {
     this.isLoading = true //antes y durante la peticion esta encendido
     api.getAssets()
       .then(assets => (this.assets = assets))
-      .finally(() => this.isLoading = false)
+      .finally(() => (this.isLoading = false))
   }
 }
 </script>
